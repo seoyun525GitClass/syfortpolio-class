@@ -3,6 +3,39 @@ const navLinks = document.querySelector(".nav-links");
 const toast = document.querySelector(".toast");
 const copyButton = document.querySelector(".copy-button");
 const yearElement = document.querySelector("#current-year");
+const projectModal = document.querySelector("#project-details-modal");
+const projectModalTitle = document.querySelector("#project-modal-title");
+const projectModalDescription = document.querySelector("#project-modal-description");
+const projectModalRole = document.querySelector("#project-modal-role");
+const projectModalTools = document.querySelector("#project-modal-tools");
+const projectModalOutcome = document.querySelector("#project-modal-outcome");
+const modalCloseButton = document.querySelector(".modal-close");
+
+const projectDetails = {
+  northstar: {
+    title: "Northstar Finance",
+    description: "A calmer, clearer dashboard concept that helps people understand their everyday finances.",
+    role: "Product strategy, UX research, interface design, and design system.",
+    tools: "Figma, FigJam, and interactive prototypes.",
+    outcome: "Example outcome: made key spending insights easier to find in a simplified dashboard."
+  },
+  bloom: {
+    title: "Bloom",
+    description: "A welcoming habit-building app concept designed to make small, healthy routines feel achievable.",
+    role: "Brand direction, product design, and interaction prototyping.",
+    tools: "Figma, Illustrator, and mobile app prototypes.",
+    outcome: "Example outcome: created a more encouraging daily check-in experience for building habits."
+  },
+  fieldnotes: {
+    title: "Fieldnotes",
+    description: "A digital editorial journal concept celebrating the outdoors through thoughtful stories and field guides.",
+    role: "Editorial art direction, UX/UI design, and front-end development.",
+    tools: "HTML, CSS, and vanilla JavaScript.",
+    outcome: "Example outcome: brought articles and field guides together in a clear, easy-to-browse layout."
+  }
+};
+
+let modalTrigger;
 
 if (yearElement) {
   yearElement.textContent = String(new Date().getFullYear());
@@ -24,6 +57,59 @@ menuToggle?.addEventListener("click", () => {
 
 navLinks?.querySelectorAll("a").forEach((link) => {
   link.addEventListener("click", closeMenu);
+});
+
+// Fill in the selected project's example content and move focus into the dialog.
+function openProjectDetails(projectId, trigger) {
+  const project = projectDetails[projectId];
+  if (!project || !projectModal || !projectModalTitle || !projectModalDescription) return;
+
+  modalTrigger = trigger;
+  projectModalTitle.textContent = project.title;
+  projectModalDescription.textContent = project.description;
+  projectModalRole.textContent = project.role;
+  projectModalTools.textContent = project.tools;
+  projectModalOutcome.textContent = project.outcome;
+  projectModal.showModal();
+  modalCloseButton?.focus();
+}
+
+// Close the dialog and return keyboard focus to the card that opened it.
+function closeProjectDetails() {
+  if (!projectModal?.open) return;
+  projectModal.close();
+}
+
+document.querySelectorAll(".project-card[data-project]").forEach((trigger) => {
+  trigger.addEventListener("click", () => {
+    openProjectDetails(trigger.dataset.project, trigger);
+  });
+  trigger.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openProjectDetails(trigger.dataset.project, trigger);
+    }
+  });
+});
+
+modalCloseButton?.addEventListener("click", closeProjectDetails);
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && projectModal?.open) {
+    event.preventDefault();
+    closeProjectDetails();
+  }
+});
+
+projectModal?.addEventListener("click", (event) => {
+  if (event.target === projectModal) closeProjectDetails();
+});
+
+projectModal?.addEventListener("close", () => {
+  if (modalTrigger instanceof HTMLElement && modalTrigger.isConnected) {
+    modalTrigger.focus();
+  }
+  modalTrigger = null;
 });
 
 let toastTimeout;

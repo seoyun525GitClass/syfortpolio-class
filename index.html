@@ -72,8 +72,8 @@
           </div>
 
           <div class="project-grid">
-            <article class="project-card project-card-large">
-              <a class="project-image image-finance" href="#contact" aria-label="Discuss the Northstar Finance project">
+            <article class="project-card project-card-large" data-project="northstar" role="button" tabindex="0" aria-label="View details for Northstar Finance" aria-haspopup="dialog" aria-controls="project-details-modal">
+              <div class="project-image image-finance">
                 <div class="finance-window">
                   <div class="window-top"><span></span><span></span><span></span><i>northstar</i></div>
                   <div class="finance-content">
@@ -85,7 +85,7 @@
                 </div>
                 <span class="image-index">01 / 03</span>
                 <span class="project-arrow" aria-hidden="true">↗</span>
-              </a>
+              </div>
               <div class="project-info">
                 <div><h3>Northstar Finance</h3><p>A calmer way to manage your money.</p></div>
                 <span class="project-type">Product design · 2024</span>
@@ -93,8 +93,8 @@
               <div class="tag-list"><span>Fintech</span><span>UX / UI</span><span>Design system</span></div>
             </article>
 
-            <article class="project-card">
-              <a class="project-image image-bloom" href="#contact" aria-label="Discuss the Bloom project">
+            <article class="project-card" data-project="bloom" role="button" tabindex="0" aria-label="View details for Bloom" aria-haspopup="dialog" aria-controls="project-details-modal">
+              <div class="project-image image-bloom">
                 <div class="bloom-card">
                   <span class="bloom-mark">bloom<span>✳</span></span>
                   <span class="bloom-copy">Make room<br />to grow.</span>
@@ -103,7 +103,7 @@
                 </div>
                 <span class="image-index">02 / 03</span>
                 <span class="project-arrow" aria-hidden="true">↗</span>
-              </a>
+              </div>
               <div class="project-info">
                 <div><h3>Bloom</h3><p>Building habits that actually stick.</p></div>
                 <span class="project-type">Brand & digital · 2023</span>
@@ -111,8 +111,8 @@
               <div class="tag-list"><span>Wellness</span><span>Brand identity</span><span>Mobile app</span></div>
             </article>
 
-            <article class="project-card">
-              <a class="project-image image-fieldnotes" href="#contact" aria-label="Discuss the Fieldnotes project">
+            <article class="project-card" data-project="fieldnotes" role="button" tabindex="0" aria-label="View details for Fieldnotes" aria-haspopup="dialog" aria-controls="project-details-modal">
+              <div class="project-image image-fieldnotes">
                 <div class="fieldnote-paper">
                   <div class="fieldnote-top"><span>FIELDNOTES®</span><span>VOL. 01 — 2024</span></div>
                   <div class="fieldnote-title">A slower<br />kind of <i>good.</i></div>
@@ -121,7 +121,7 @@
                 </div>
                 <span class="image-index">03 / 03</span>
                 <span class="project-arrow" aria-hidden="true">↗</span>
-              </a>
+              </div>
               <div class="project-info">
                 <div><h3>Fieldnotes</h3><p>A digital journal for the outdoors.</p></div>
                 <span class="project-type">Editorial · 2023</span>
@@ -177,6 +177,29 @@
         </div>
       </div>
     </footer>
+    <dialog class="project-modal" id="project-details-modal" aria-labelledby="project-modal-title" aria-describedby="project-modal-description">
+      <div class="project-modal-panel">
+        <button class="modal-close" type="button" aria-label="Close project details"><span aria-hidden="true">×</span></button>
+        <p class="eyebrow">Project details</p>
+        <h2 id="project-modal-title"></h2>
+        <p class="modal-description" id="project-modal-description"></p>
+        <p class="sample-disclaimer">Example content only — replace with verified project information.</p>
+        <div class="modal-details-grid">
+          <section>
+            <h3>My role</h3>
+            <p id="project-modal-role"></p>
+          </section>
+          <section>
+            <h3>Tools &amp; technology</h3>
+            <p id="project-modal-tools"></p>
+          </section>
+          <section class="modal-outcome">
+            <h3>Key outcome</h3>
+            <p id="project-modal-outcome"></p>
+          </section>
+        </div>
+      </div>
+    </dialog>
     <div class="toast" role="status" aria-live="polite"></div>
   </body>
 </html>
