@@ -2,6 +2,8 @@ const menuToggle = document.querySelector(".menu-toggle");
 const navLinks = document.querySelector(".nav-links");
 const toast = document.querySelector(".toast");
 const copyButton = document.querySelector(".copy-button");
+const contactForm = document.querySelector("#contact-form");
+const contactFormStatus = document.querySelector("#contact-form-status");
 const yearElement = document.querySelector("#current-year");
 const projectModal = document.querySelector("#project-details-modal");
 const projectModalTitle = document.querySelector("#project-modal-title");
@@ -137,5 +139,62 @@ copyButton?.addEventListener("click", async () => {
     showToast("Email copied to clipboard.");
   } catch (error) {
     showToast("Could not copy email. Please use the email link instead.", true);
+  }
+});
+
+contactForm?.querySelectorAll("input, textarea").forEach((field) => {
+  field.addEventListener("input", () => {
+    const error = document.getElementById(field.getAttribute("aria-describedby"));
+    const hasValue = field.value.trim().length > 0;
+    const invalidEmail = field.type === "email" && hasValue && field.validity.typeMismatch;
+
+    if (hasValue && !invalidEmail) {
+      field.setAttribute("aria-invalid", "false");
+      error?.classList.remove("is-visible");
+      if (error) error.textContent = "";
+    }
+
+    if (contactFormStatus) {
+      contactFormStatus.textContent = "";
+      contactFormStatus.classList.remove("is-error");
+    }
+  });
+});
+
+contactForm?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const fields = [...contactForm.querySelectorAll("input, textarea")];
+  let firstInvalidField;
+
+  fields.forEach((field) => {
+    const error = document.getElementById(field.getAttribute("aria-describedby"));
+    let message = "";
+
+    if (!field.value.trim()) {
+      message = `Please enter your ${field.name}.`;
+    } else if (field.type === "email" && field.validity.typeMismatch) {
+      message = "Please enter a valid email address.";
+    }
+
+    field.setAttribute("aria-invalid", String(Boolean(message)));
+    error?.classList.toggle("is-visible", Boolean(message));
+    if (error) error.textContent = message;
+
+    if (message && !firstInvalidField) firstInvalidField = field;
+  });
+
+  if (firstInvalidField) {
+    if (contactFormStatus) {
+      contactFormStatus.textContent = "Please correct the highlighted fields before submitting.";
+      contactFormStatus.classList.add("is-error");
+    }
+    firstInvalidField.focus();
+    return;
+  }
+
+  const name = contactForm.querySelector("#contact-name").value.trim();
+  if (contactFormStatus) {
+    contactFormStatus.textContent = `Thanks, ${name}. Your form passed validation. No email has been sent.`;
+    contactFormStatus.classList.remove("is-error");
   }
 });
