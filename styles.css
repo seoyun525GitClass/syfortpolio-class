@@ -933,10 +933,82 @@ h1 {
   color: var(--lime);
 }
 
+.contact-form {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 560px);
+  margin-top: 40px;
+}
+
+.contact-field {
+  margin-bottom: 20px;
+}
+
+.contact-field label {
+  display: block;
+  margin-bottom: 8px;
+  color: #e0e3db;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.contact-field input,
+.contact-field textarea {
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgb(255 255 255 / 28%);
+  border-radius: 4px;
+  background: rgb(255 255 255 / 5%);
+  color: var(--paper);
+  font: inherit;
+  font-size: 14px;
+}
+
+.contact-field textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.contact-field input:focus-visible,
+.contact-field textarea:focus-visible,
+.contact-form button:focus-visible {
+  outline: 2px solid var(--lime);
+  outline-offset: 3px;
+}
+
+.contact-field [aria-invalid="true"] {
+  border-color: #f2a797;
+}
+
+.field-error {
+  display: none;
+  margin-top: 7px;
+  color: #f2a797;
+  font-size: 12px;
+}
+
+.field-error.is-visible {
+  display: block;
+}
+
+.contact-form-status {
+  min-height: 1.5em;
+  margin: 16px 0 0;
+  color: var(--lime);
+  font-size: 13px;
+}
+
+.contact-form-status.is-error {
+  color: #f2a797;
+}
+
 .contact-decoration {
   position: absolute;
+  z-index: 0;
   top: 50%;
   right: 3%;
+  pointer-events: none;
   color: rgb(200 241 105 / 10%);
   font-size: clamp(180px, 30vw, 380px);
   line-height: 1;
